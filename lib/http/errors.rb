@@ -5,7 +5,14 @@ module HTTP
   class Error < StandardError; end
 
   # Generic Connection error
-  class ConnectionError < Error; end
+  class ConnectionError < Error
+    attr_reader :proxy_headers
+
+    def initialize(message = '', proxy_headers = {})
+      @proxy_headers = proxy_headers
+      super(message)
+    end
+  end
 
   # Generic Request error
   class RequestError < Error; end

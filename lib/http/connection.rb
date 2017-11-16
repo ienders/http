@@ -98,7 +98,7 @@ module HTTP
     def read_headers!
       loop do
         if read_more(BUFFER_SIZE) == :eof
-          raise ConnectionError, proxy_headers: self.proxy_response_headers unless @parser.headers?
+          raise ConnectionError.new("couldn't read response headers", self.proxy_response_headers) unless @parser.headers?
           break
         elsif @parser.headers?
           break
